@@ -1,6 +1,5 @@
 import React from 'react';
 import { useAppStore } from '../../store/useAppStore';
-import { LayoutDashboard, FileCheck, Calendar, Gavel, ShieldAlert, Award, FileSearch } from 'lucide-react';
 
 export default function GIGWNavBar({ currentView, setCurrentView }) {
   const { activeRole } = useAppStore();
@@ -9,63 +8,55 @@ export default function GIGWNavBar({ currentView, setCurrentView }) {
     switch (activeRole) {
       case 'INSTITUTION':
         return [
-          { id: 'dashboard', label: 'Institution Dashboard', icon: LayoutDashboard },
-          { id: 'apply', label: 'Submit Application (EoA/New)', icon: FileCheck },
-          { id: 'compliance', label: 'Compliance & Document Expiry', icon: ShieldAlert }
+          { id: 'dashboard', label: 'Dashboard' },
+          { id: 'apply', label: 'New Application' },
+          { id: 'compliance', label: 'Document Validity' }
         ];
       case 'REGIONAL_OFFICER':
         return [
-          { id: 'dashboard', label: 'Regional Scrutiny Overview', icon: LayoutDashboard },
-          { id: 'workbench', label: 'AI Scrutiny Workbench (High Impact)', icon: FileSearch },
-          { id: 'compliance', label: 'Regional Compliance Monitor', icon: ShieldAlert }
+          { id: 'dashboard', label: 'Dashboard' },
+          { id: 'workbench', label: 'Scrutiny Workbench' },
+          { id: 'compliance', label: 'Regional Compliance' }
         ];
       case 'COMMITTEE':
         return [
-          { id: 'dashboard', label: 'Committee Roster Dashboard', icon: LayoutDashboard },
-          { id: 'evc', label: 'EVC Visit Scheduling & Reports', icon: Calendar },
-          { id: 'sac', label: 'SAC / SHC Hearing Cases', icon: Gavel }
+          { id: 'dashboard', label: 'Dashboard' },
+          { id: 'evc', label: 'Committee Visits' },
+          { id: 'sac', label: 'SAC / SHC Review' }
         ];
       case 'AICTE_BUREAU':
         return [
-          { id: 'dashboard', label: 'National Executive Dashboard', icon: LayoutDashboard },
-          { id: 'approvals', label: 'Final Approval Orders (EoA)', icon: Award },
-          { id: 'alerts', label: 'Alert Matrix & SLA Escalation', icon: ShieldAlert }
+          { id: 'dashboard', label: 'National Dashboard' },
+          { id: 'approvals', label: 'Approval Orders' },
+          { id: 'alerts', label: 'Escalated Cases' }
         ];
       default:
-        return [{ id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard }];
+        return [{ id: 'dashboard', label: 'Dashboard' }];
     }
   };
 
   const navItems = getNavItems();
 
   return (
-    <nav className="w-full bg-gov-navy text-white shadow-md border-b-2 border-amber-500">
+    <nav className="w-full bg-white border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 flex items-center justify-between overflow-x-auto">
-        <div className="flex items-center space-x-1 py-1">
+        <div className="flex items-center space-x-6">
           {navItems.map((item) => {
-            const Icon = item.icon;
             const isActive = currentView === item.id;
             return (
               <button
                 key={item.id}
                 onClick={() => setCurrentView(item.id)}
-                className={`flex items-center gap-2 px-3.5 py-2 text-xs font-semibold rounded-t transition-colors whitespace-nowrap border-b-2 ${
+                className={`py-3 text-xs tracking-normal whitespace-nowrap transition-colors border-b-2 ${
                   isActive
-                    ? 'bg-gov-navyDark text-amber-300 border-amber-400 font-bold'
-                    : 'text-slate-200 border-transparent hover:bg-gov-navyLight hover:text-white'
+                    ? 'border-blue-900 text-blue-900 font-semibold'
+                    : 'border-transparent text-slate-600 hover:text-slate-900 font-normal'
                 }`}
               >
-                <Icon className="w-4 h-4 text-amber-400" />
-                <span>{item.label}</span>
+                {item.label}
               </button>
             );
           })}
-        </div>
-
-        {/* Live APH Handbook Tag */}
-        <div className="hidden lg:flex items-center gap-2 text-[11px] text-slate-300 pr-2">
-          <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-          <span>APH 2024-27 Active</span>
         </div>
       </div>
     </nav>

@@ -1,108 +1,163 @@
 import React, { useState } from 'react';
 import { useAppStore } from '../../store/useAppStore';
-import { ShieldAlert, CheckCircle2, Clock, AlertTriangle, Upload, FileText, Check } from 'lucide-react';
+import {
+  ShieldAlert,
+  CheckCircle2,
+  Clock,
+  AlertTriangle,
+  Upload,
+  FileCheck,
+  Check,
+  Building2
+} from 'lucide-react';
 
 export default function ComplianceCenter() {
   const { complianceObligations } = useAppStore();
   const [uploadedObligations, setUploadedObligations] = useState({});
 
   const handleFakeUpload = (id) => {
-    setUploadedObligations({ ...uploadedObligations, [id]: true });
+    setUploadedObligations((prev) => ({ ...prev, [id]: true }));
   };
+
+  const overdueCount = complianceObligations.filter((o) => o.daysRemaining < 0).length;
+  const expiringCount = complianceObligations.filter(
+    (o) => o.daysRemaining >= 0 && o.daysRemaining <= 30
+  ).length;
 
   return (
     <div className="space-y-6 font-sans">
       {/* Header */}
-      <div className="bg-white p-5 rounded-xl border border-gov-border shadow-xs">
-        <div className="flex items-center gap-2 mb-1">
-          <ShieldAlert className="w-5 h-5 text-gov-navy" />
-          <h2 className="text-xl font-serif font-bold text-gov-navy">
-            Institutional Undertakings &amp; Document Validity Engine
-          </h2>
-        </div>
-        <p className="text-xs text-slate-600 leading-relaxed max-w-3xl">
-          Continuous compliance monitoring service tracking statutory lease deeds, fire safety certificates, building approvals, and time-bound regulatory undertakings mandated under the AICTE Approval Process Handbook.
+      <div className="border-b border-slate-200 pb-4">
+        <h1 className="text-xl font-serif font-bold text-slate-900">
+          Statutory Undertakings &amp; Document Validity
+        </h1>
+        <p className="text-xs text-slate-600 mt-1">
+          Continuous compliance monitoring for land deeds, safety certificates, building approvals, and time-bound undertakings mandated under the AICTE Approval Process Handbook
         </p>
       </div>
 
-      {/* Grid of Obligations */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {complianceObligations.map((item) => {
-          const isOverdue = item.daysRemaining < 0;
-          const isExpiringSoon = item.daysRemaining > 0 && item.daysRemaining <= 30;
-          const isUploaded = uploadedObligations[item.id] || item.undertakingSubmitted;
+      {/* Summary KPI Strip */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="bg-white p-4 rounded border border-slate-200">
+          <div className="text-xs font-medium text-slate-500 uppercase tracking-wider">
+            Total Monitored Documents
+          </div>
+          <div className="text-2xl font-semibold text-slate-900 mt-1">
+            {complianceObligations.length}
+          </div>
+          <div className="text-[11px] text-slate-500 mt-0.5">Under annual review</div>
+        </div>
 
-          let badgeColor = 'bg-emerald-100 text-emerald-800 border-emerald-300';
-          let badgeText = `Valid (${item.daysRemaining} days remaining)`;
+        <div className="bg-white p-4 rounded border border-slate-200">
+          <div className="text-xs font-medium text-slate-500 uppercase tracking-wider">
+            Expiring Within 30 Days
+          </div>
+          <div className="text-2xl font-semibold text-amber-700 mt-1">
+            {expiringCount}
+          </div>
+          <div className="text-[11px] text-amber-800 mt-0.5">Renewal action required</div>
+        </div>
 
-          if (isOverdue) {
-            badgeColor = 'bg-rose-100 text-rose-900 border-rose-300 animate-pulse';
-            badgeText = `Overdue by ${Math.abs(item.daysRemaining)} days`;
-          } else if (isExpiringSoon) {
-            badgeColor = 'bg-amber-100 text-amber-900 border-amber-300 font-bold';
-            badgeText = `Expires in ${item.daysRemaining} days (Action Required)`;
-          }
+        <div className="bg-white p-4 rounded border border-slate-200">
+          <div className="text-xs font-medium text-slate-500 uppercase tracking-wider">
+            Overdue Non-Compliance
+          </div>
+          <div className="text-2xl font-semibold text-red-600 mt-1">
+            {overdueCount}
+          </div>
+          <div className="text-[11px] text-red-700 mt-0.5">Escalated to Regional Officer</div>
+        </div>
+      </div>
 
-          return (
-            <div
-              key={item.id}
-              className={`bg-white rounded-xl border p-5 shadow-xs flex flex-col justify-between ${
-                isOverdue
-                  ? 'border-rose-300 ring-2 ring-rose-100'
-                  : isExpiringSoon
-                  ? 'border-amber-300'
-                  : 'border-gov-border'
-              }`}
-            >
-              <div>
-                <div className="flex items-start justify-between gap-2 mb-2">
-                  <span className="font-mono text-[11px] text-slate-400 font-bold">
-                    {item.id}
+      {/* Main Table */}
+      <div className="bg-white rounded border border-slate-200 overflow-hidden">
+        <div className="px-5 py-3.5 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <ShieldAlert className="w-4 h-4 text-blue-900" />
+            <h2 className="text-sm font-semibold text-slate-900">
+              Document Compliance Schedule
+            </h2>
+          </div>
+          <span className="text-xs text-slate-500">
+            Automated SLA Monitoring
+          </span>
+        </div>
+
+        <div className="overflow-x-auto">
+          <table className="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr className="border-b border-slate-200 bg-slate-50 text-slate-600 font-semibold">
+                <th className="py-3 px-4">Document / Obligation</th>
+                <th className="py-3 px-4">Institution</th>
+                <th className="py-3 px-4">Expiry Date</th>
+                <th className="py-3 px-4">Validity Status</th>
+                <th className="py-3 px-4 text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-200">
+              {complianceObligations.map((item) => {
+                const isOverdue = item.daysRemaining < 0;
+                const isExpiringSoon = item.daysRemaining >= 0 && item.daysRemaining <= 30;
+                const isUploaded = uploadedObligations[item.id] || item.undertakingSubmitted;
+
+                let statusBadge = (
+                  <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-emerald-50 text-emerald-800 border border-emerald-200">
+                    Valid ({item.daysRemaining} days)
                   </span>
-                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded border ${badgeColor}`}>
-                    {badgeText}
-                  </span>
-                </div>
+                );
 
-                <h3 className="font-bold text-sm text-slate-800 leading-snug">
-                  {item.documentType}
-                </h3>
-                <p className="text-[11px] text-slate-500 font-medium mt-0.5">
-                  {item.institutionName}
-                </p>
+                if (isOverdue) {
+                  statusBadge = (
+                    <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-red-50 text-red-800 border border-red-200">
+                      Overdue ({Math.abs(item.daysRemaining)} days)
+                    </span>
+                  );
+                } else if (isExpiringSoon) {
+                  statusBadge = (
+                    <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-amber-50 text-amber-900 border border-amber-200">
+                      Expiring Soon ({item.daysRemaining} days)
+                    </span>
+                  );
+                }
 
-                <p className="text-xs text-slate-600 mt-2 bg-slate-50 p-2.5 rounded border border-slate-200">
-                  {item.obligationText}
-                </p>
-
-                <div className="mt-3 flex items-center justify-between text-xs text-slate-500 pt-2 border-t border-slate-100">
-                  <span>Expiry Date: <strong>{item.expiryDate}</strong></span>
-                  <span className="font-mono text-[10px] bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
-                    SLA: {item.slaLevel}
-                  </span>
-                </div>
-              </div>
-
-              {/* Action Button */}
-              <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
-                {isUploaded ? (
-                  <span className="text-emerald-700 text-xs font-bold flex items-center gap-1.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                    <span>Proof Submitted (Under Bureau Review)</span>
-                  </span>
-                ) : (
-                  <button
-                    onClick={() => handleFakeUpload(item.id)}
-                    className="w-full py-2 px-3 rounded bg-gov-navy hover:bg-gov-navyLight text-white font-bold text-xs flex items-center justify-center gap-2 transition-colors shadow-xs"
-                  >
-                    <Upload className="w-3.5 h-3.5" />
-                    <span>Upload Renewed Document / Affidavit</span>
-                  </button>
-                )}
-              </div>
-            </div>
-          );
-        })}
+                return (
+                  <tr key={item.id} className="hover:bg-slate-50/70 transition-colors">
+                    <td className="py-3.5 px-4 max-w-sm">
+                      <div className="font-medium text-slate-900">{item.documentType}</div>
+                      <div className="text-[11px] text-slate-500 mt-0.5">{item.obligationText}</div>
+                      <div className="text-[10px] font-mono text-slate-400 mt-0.5">Ref: {item.id}</div>
+                    </td>
+                    <td className="py-3.5 px-4 text-slate-700">
+                      {item.institutionName}
+                    </td>
+                    <td className="py-3.5 px-4 font-medium text-slate-800">
+                      {item.expiryDate}
+                    </td>
+                    <td className="py-3.5 px-4">
+                      {statusBadge}
+                    </td>
+                    <td className="py-3.5 px-4 text-right">
+                      {isUploaded ? (
+                        <span className="inline-flex items-center gap-1 text-emerald-700 font-medium text-xs">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                          <span>Submitted</span>
+                        </span>
+                      ) : (
+                        <button
+                          onClick={() => handleFakeUpload(item.id)}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-blue-900 hover:bg-blue-800 text-white font-medium text-xs transition-colors"
+                        >
+                          <Upload className="w-3.5 h-3.5" />
+                          <span>Upload Renewal</span>
+                        </button>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

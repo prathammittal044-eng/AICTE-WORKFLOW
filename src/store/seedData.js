@@ -249,7 +249,7 @@ export const initialApplications = [
       recommendationPending: true
     },
     history: [
-      { stage: 'SUBMITTED', at: '2026-09-28T16:20:00Z', by: 'Dr. S. Ramesh Kumar', role: 'INSTITUTION', remark: 'Submitted renewal dossier' },
+      { stage: 'SUBMITTED', at: '2026-09-28T16:20:00Z', by: 'Dr. S. Ramesh Kumar', role: 'INSTITUTION', remark: 'Submitted renewal application' },
       { stage: 'SCRUTINY', at: '2026-10-02T11:00:00Z', by: 'Dr. K. Swaminathan', role: 'REGIONAL_OFFICER', remark: 'Approved for EVC' },
       { stage: 'EVC_SCHEDULED', at: '2026-10-08T10:00:00Z', by: 'EVC Desk', role: 'COMMITTEE', remark: 'EVC roster finalized' },
       { stage: 'EVC_REPORT_SUBMITTED', at: '2026-10-16T18:00:00Z', by: 'Dr. Manjunath Swamy', role: 'COMMITTEE', remark: 'Report cleared with B+ rating' },
@@ -431,7 +431,7 @@ export const initialAuditLogs = [
     role: 'INSTITUTION',
     entityId: 'AICTE-APP-2026-087341',
     action: 'APPLICATION_SUBMITTED',
-    remark: 'EoA 2026-27 dossier submitted along with DigiLocker verified land records.',
+    remark: 'EoA 2026-27 application submitted along with DigiLocker verified land records.',
     ip: '103.21.58.19 (SRCEM Campus Gateway)'
   }
 ];

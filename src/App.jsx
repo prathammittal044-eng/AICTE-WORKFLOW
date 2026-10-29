@@ -7,8 +7,7 @@ import GIGWHeader from './components/layout/GIGWHeader';
 import GIGWNavBar from './components/layout/GIGWNavBar';
 import GIGWFooter from './components/layout/GIGWFooter';
 
-// UI Primitives
-import JuryDemoBar from './components/ui/JuryDemoBar';
+// UI Modals
 import NotificationDrawer from './components/ui/NotificationDrawer';
 import AuditTrailModal from './components/ui/AuditTrailModal';
 
@@ -24,7 +23,7 @@ import BureauDashboard from './views/bureau/BureauDashboard';
 
 export default function App() {
   const { activeRole } = useAppStore();
-  const [isAuthenticated, setIsAuthenticated] = useState(true); // default to true so live prototype is immediately visible
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
   const [currentNav, setCurrentNav] = useState('dashboard');
   const [activeWorkbenchAppId, setActiveWorkbenchAppId] = useState('AICTE-APP-2026-087341');
 
@@ -32,10 +31,6 @@ export default function App() {
   const handleOpenWorkbench = (appId) => {
     setActiveWorkbenchAppId(appId);
     setCurrentNav('workbench');
-  };
-
-  const handleRoleSelectFromDemo = (newRole) => {
-    setCurrentNav('dashboard');
   };
 
   if (!isAuthenticated) {
@@ -82,26 +77,20 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gov-offWhite text-slate-900 flex flex-col justify-between font-sans antialiased">
-      {/* GIGW Official Chrome */}
+    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col justify-between font-sans antialiased">
       <div>
         <GIGWTopBar />
-        <GIGWHeader />
+        <GIGWHeader onLogout={() => setIsAuthenticated(false)} />
         <GIGWNavBar currentView={currentNav} setCurrentView={setCurrentNav} />
 
-        {/* Main Body Content Container */}
         <main id="main-content" className="max-w-7xl mx-auto w-full px-4 py-6">
           {renderActiveView()}
         </main>
       </div>
 
-      {/* Official Government Footer */}
       <GIGWFooter />
 
-      {/* Floating Jury Demo Bar (Fixed bottom-right) */}
-      <JuryDemoBar onRoleSelect={handleRoleSelectFromDemo} />
-
-      {/* Global Modals & Drawers */}
+      {/* Global Drawers & Modals */}
       <NotificationDrawer />
       <AuditTrailModal />
     </div>

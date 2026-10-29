@@ -1,6 +1,7 @@
 import React from 'react';
 import { useAppStore } from '../../store/useAppStore';
-import { X, FileClock, Shield, Lock, Search } from 'lucide-react';
+import { ROLE_LABELS } from '../../lib/constants';
+import { X, FileText } from 'lucide-react';
 
 export default function AuditTrailModal() {
   const { auditModalOpen, toggleAuditModal, auditLogs } = useAppStore();
@@ -8,88 +9,66 @@ export default function AuditTrailModal() {
   if (!auditModalOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/60 backdrop-blur-xs flex items-center justify-center p-4">
-      <div className="bg-white w-full max-w-4xl rounded-xl shadow-2xl border border-gov-border overflow-hidden flex flex-col max-h-[85vh]">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/40 backdrop-blur-2xs flex items-center justify-center p-4">
+      <div className="bg-white w-full max-w-4xl rounded-lg shadow-xl border border-slate-200 overflow-hidden flex flex-col max-h-[85vh]">
         {/* Modal Header */}
-        <div className="p-4 bg-gov-navy text-white flex items-center justify-between border-b-2 border-amber-500">
-          <div className="flex items-center gap-2.5">
-            <div className="p-1.5 bg-gov-navyDark rounded border border-amber-400">
-              <FileClock className="w-5 h-5 text-amber-300" />
-            </div>
+        <div className="p-4 border-b border-slate-200 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <FileText className="w-4 h-4 text-slate-700" />
             <div>
-              <h3 className="font-serif font-bold text-base">Digital Audit Trail & Governance Log</h3>
-              <p className="text-xs text-slate-300">
-                Immutable, timestamped administrative ledger aligned with OWASP ASVS v5.0
-              </p>
+              <h3 className="font-semibold text-slate-900 text-sm">Application Activity Log</h3>
+              <p className="text-xs text-slate-500">Official log of workflow transitions and administrative actions</p>
             </div>
           </div>
           <button
             onClick={toggleAuditModal}
-            className="p-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-gov-navyLight"
+            className="p-1.5 rounded text-slate-400 hover:text-slate-600 hover:bg-slate-100"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
-        </div>
-
-        {/* Sub-bar info */}
-        <div className="bg-slate-100 p-3 border-b border-gov-border flex flex-wrap items-center justify-between text-xs gap-2">
-          <div className="flex items-center gap-2">
-            <span className="font-bold text-slate-700">Total Audit Records:</span>
-            <span className="bg-white px-2 py-0.5 rounded border border-slate-300 font-mono font-bold">
-              {auditLogs.length}
-            </span>
-          </div>
-          <div className="flex items-center gap-2 text-slate-600 text-[11px]">
-            <Lock className="w-3.5 h-3.5 text-emerald-600" />
-            <span>SHA-256 Non-Repudiation Check: <strong>PASSED</strong></span>
-          </div>
         </div>
 
         {/* Audit Log Table */}
         <div className="flex-1 overflow-y-auto p-4">
-          <div className="border border-gov-border rounded-lg overflow-hidden shadow-xs">
+          <div className="border border-slate-200 rounded-md overflow-hidden">
             <table className="w-full text-left text-xs border-collapse">
-              <thead className="bg-slate-100 text-slate-700 font-bold uppercase tracking-wider text-[11px] border-b border-gov-border">
+              <thead className="bg-slate-50 text-slate-700 font-semibold text-[11px] border-b border-slate-200">
                 <tr>
-                  <th className="p-3 border-r border-gov-border">Timestamp (IST)</th>
-                  <th className="p-3 border-r border-gov-border">Actor & Scope</th>
-                  <th className="p-3 border-r border-gov-border">Entity ID</th>
-                  <th className="p-3 border-r border-gov-border">Action Type</th>
-                  <th className="p-3">Verified Remark & Audit Context</th>
+                  <th className="p-2.5 border-r border-slate-200">Timestamp</th>
+                  <th className="p-2.5 border-r border-slate-200">Recorded By</th>
+                  <th className="p-2.5 border-r border-slate-200">Record ID</th>
+                  <th className="p-2.5 border-r border-slate-200">Action</th>
+                  <th className="p-2.5">Official Remarks</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-200 font-sans">
+              <tbody className="divide-y divide-slate-100 font-sans">
                 {auditLogs.map((log) => (
-                  <tr key={log.id} className="hover:bg-slate-50 transition-colors">
-                    <td className="p-3 border-r border-gov-border font-mono text-[11px] text-slate-600 whitespace-nowrap">
+                  <tr key={log.id} className="hover:bg-slate-50/60 transition-colors">
+                    <td className="p-2.5 border-r border-slate-200 text-[11px] text-slate-600 whitespace-nowrap font-mono">
                       {new Date(log.timestamp).toLocaleString('en-GB', {
                         day: '2-digit',
                         month: 'short',
                         year: 'numeric',
                         hour: '2-digit',
-                        minute: '2-digit',
-                        second: '2-digit'
+                        minute: '2-digit'
                       })}
                     </td>
-                    <td className="p-3 border-r border-gov-border">
-                      <div className="font-bold text-gov-navy">{log.actor}</div>
-                      <span className="inline-block bg-slate-100 text-[10px] text-slate-600 px-1.5 py-0.2 rounded border border-slate-300 font-mono mt-0.5">
-                        {log.role}
-                      </span>
+                    <td className="p-2.5 border-r border-slate-200">
+                      <div className="font-medium text-slate-900">{log.actor}</div>
+                      <div className="text-[10px] text-slate-400">
+                        {ROLE_LABELS[log.role] || log.role}
+                      </div>
                     </td>
-                    <td className="p-3 border-r border-gov-border font-mono font-bold text-slate-800">
+                    <td className="p-2.5 border-r border-slate-200 font-mono text-slate-700">
                       {log.entityId}
                     </td>
-                    <td className="p-3 border-r border-gov-border">
-                      <span className="bg-slate-100 text-slate-800 font-mono text-[10px] font-bold px-2 py-0.5 rounded border border-slate-300">
+                    <td className="p-2.5 border-r border-slate-200">
+                      <span className="text-[10px] bg-slate-100 text-slate-700 px-1.5 py-0.5 rounded border border-slate-200 font-mono">
                         {log.action}
                       </span>
                     </td>
-                    <td className="p-3 text-slate-700 leading-relaxed text-[11px]">
+                    <td className="p-2.5 text-slate-700 text-[11px] leading-relaxed">
                       {log.remark}
-                      <div className="text-[10px] text-slate-400 font-mono mt-0.5">
-                        Client IP: {log.ip}
-                      </div>
                     </td>
                   </tr>
                 ))}
@@ -99,13 +78,12 @@ export default function AuditTrailModal() {
         </div>
 
         {/* Footer */}
-        <div className="p-3 bg-slate-50 border-t border-gov-border flex justify-between items-center text-xs text-slate-500">
-          <span>Compliant with National Cyber Security Policy &amp; GIGW 3.0</span>
+        <div className="p-3 bg-slate-50 border-t border-slate-200 flex justify-end">
           <button
             onClick={toggleAuditModal}
-            className="px-4 py-1.5 bg-gov-navy text-white rounded font-bold hover:bg-gov-navyLight text-xs"
+            className="px-4 py-1.5 bg-slate-800 text-white rounded text-xs font-medium hover:bg-slate-900 transition-colors"
           >
-            Close Audit Ledger
+            Close
           </button>
         </div>
       </div>

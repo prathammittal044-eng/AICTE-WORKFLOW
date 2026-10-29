@@ -308,7 +308,7 @@ export const useAppStore = create(
         });
       },
 
-      // Demo Trigger: Simulate SLA Breach & Multi-Tier Escalation
+      // Scheduled SLA Verification & Escalation Simulation
       simulateSLABreach: () => {
         const state = get();
         const timestamp = new Date().toISOString();
@@ -330,20 +330,20 @@ export const useAppStore = create(
           timestamp,
           type: 'SLA_ESCALATION_LEVEL_3',
           recipientRole: 'AICTE_BUREAU',
-          title: '🚨 CRITICAL: Level-3 Escalation Triggered by Automated Engine',
-          body: 'Application AICTE-APP-2026-087341 (SRCEM Nagpur) exceeded 72h Scrutiny SLA. Case escalated to Member Secretary & Central Bureau New Delhi.',
+          title: 'SLA Notification: Level-3 Escalation Notice',
+          body: 'Application AICTE-APP-2026-087341 (SRCEM Nagpur) has exceeded the standard scrutiny timeframe. Notice transmitted to Regional Directorate.',
           read: false
         };
 
         const escalationAudit = {
           id: `AUD-SLA-${Date.now().toString().slice(-4)}`,
           timestamp,
-          actor: 'Automated SLA Escalation Matrix',
+          actor: 'SLA Scheduled Engine',
           role: 'SYSTEM_AUTOMATION',
           entityId: 'AICTE-APP-2026-087341',
-          action: 'LEVEL_3_ESCALATION_DISPATCHED',
-          remark: 'SLA breached by 48 hours. Auto-alert dispatched via SMS/Email gateway to Regional Director.',
-          ip: 'AICTE-CRON-DAEMON'
+          action: 'LEVEL_3_ESCALATION_RECORDED',
+          remark: 'Time-bound processing interval elapsed. Escalation alert generated.',
+          ip: 'AICTE-SYSTEM-SCHEDULER'
         };
 
         set({
@@ -354,7 +354,7 @@ export const useAppStore = create(
         });
       },
 
-      // Demo Reset to Initial State
+      // Reset to default sample records
       resetToSeedData: () => {
         set({
           institutions: initialInstitutions,
@@ -367,7 +367,7 @@ export const useAppStore = create(
       }
     }),
     {
-      name: 'parikalp_portal_state',
+      name: 'aicte_portal_state',
       partialize: (state) => ({
         activeRole: state.activeRole,
         activeLang: state.activeLang,

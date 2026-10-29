@@ -8,11 +8,18 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
-  PieChart,
-  Pie,
   Cell
 } from 'recharts';
-import { Award, ShieldAlert, CheckCircle2, FileText, Send, Building, AlertTriangle } from 'lucide-react';
+import {
+  Award,
+  ShieldAlert,
+  CheckCircle2,
+  FileText,
+  Send,
+  Building2,
+  Clock,
+  AlertTriangle
+} from 'lucide-react';
 
 export default function BureauDashboard() {
   const { applications, institutions, issueApprovalOrder } = useAppStore();
@@ -21,26 +28,32 @@ export default function BureauDashboard() {
     'Subject to continuous maintenance of Faculty cadre ratio (1:15) and submission of renewed land lease deed before 15-Nov-2026.'
   );
 
-  // Recharts Data Sets
+  // Regional workload distribution
   const regionalData = [
-    { name: 'Northern', Total: 1640, Scrutiny: 280, Overdue: 3 },
-    { name: 'Western', Total: 1840, Scrutiny: 312, Overdue: 4 },
-    { name: 'Southern', Total: 2120, Scrutiny: 240, Overdue: 2 },
-    { name: 'Eastern', Total: 1420, Scrutiny: 168, Overdue: 2 },
-    { name: 'Central', Total: 1400, Scrutiny: 140, Overdue: 3 }
+    { name: 'Northern', Scrutiny: 280, Overdue: 3 },
+    { name: 'Western', Scrutiny: 312, Overdue: 4 },
+    { name: 'Southern', Scrutiny: 240, Overdue: 2 },
+    { name: 'Eastern', Scrutiny: 168, Overdue: 2 },
+    { name: 'Central', Scrutiny: 140, Overdue: 3 }
   ];
 
+  // Pipeline funnel stages
   const funnelData = [
-    { name: 'Stage 1: Submitted', count: 8420, fill: '#003087' },
-    { name: 'Stage 2: Scrutiny', count: 6280, fill: '#0B4DB5' },
-    { name: 'Stage 3: EVC Visited', count: 1960, fill: '#4F46E5' },
-    { name: 'Stage 4: SAC Hearing', count: 420, fill: '#D97706' },
-    { name: 'Stage 5: EoA Issued', count: 4120, fill: '#10B981' }
+    { name: 'Submitted', count: 8420, fill: '#1e3a8a' },
+    { name: 'Scrutiny', count: 6280, fill: '#2563eb' },
+    { name: 'EVC Inspection', count: 1960, fill: '#4f46e5' },
+    { name: 'SAC Appellate', count: 420, fill: '#d97706' },
+    { name: 'Approved (EoA)', count: 4120, fill: '#059669' }
   ];
 
   // Cases awaiting Bureau Final Approval
   const pendingFinalApprovals = applications.filter(
     (a) => a.workflowStage === 'SAC_PROCESSING' || a.workflowStage === 'EVC_REPORT_SUBMITTED'
+  );
+
+  // Any applications with breached SLAs
+  const overdueCases = applications.filter(
+    (a) => a.slaBreached || (a.slaHoursRemaining !== undefined && a.slaHoursRemaining <= 0)
   );
 
   const handleIssueOrder = () => {
@@ -52,65 +65,72 @@ export default function BureauDashboard() {
 
   return (
     <div className="space-y-6 font-sans">
-      {/* Bureau Banner */}
-      <div className="bg-white p-5 rounded-xl border border-gov-border shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <Award className="w-5 h-5 text-gov-navy" />
-            <h2 className="text-xl font-serif font-bold text-gov-navy">
-              AICTE National Approval Bureau &amp; Executive Command Center
-            </h2>
+      {/* Page Header */}
+      <div className="border-b border-slate-200 pb-4">
+        <h1 className="text-xl font-serif font-bold text-slate-900">
+          Approval Bureau &amp; Executive Monitoring
+        </h1>
+        <p className="text-xs text-slate-600 mt-1">
+          Statutory approval orders, national pendency analytics, and SLA compliance monitoring
+        </p>
+      </div>
+
+      {/* 4 Compact Administrative KPI Cards */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="bg-white p-4 rounded border border-slate-200">
+          <div className="text-xs font-medium text-slate-500 uppercase tracking-wider">Total Applications</div>
+          <div className="text-2xl font-semibold text-slate-900 mt-1">8,420</div>
+          <div className="text-[11px] text-slate-500 mt-1">Academic Year 2026-27</div>
+        </div>
+
+        <div className="bg-white p-4 rounded border border-slate-200">
+          <div className="text-xs font-medium text-slate-500 uppercase tracking-wider">In Scrutiny / Review</div>
+          <div className="text-2xl font-semibold text-slate-900 mt-1">6,280</div>
+          <div className="text-[11px] text-slate-500 mt-1">Across 5 Regional Offices</div>
+        </div>
+
+        <div className="bg-white p-4 rounded border border-slate-200">
+          <div className="text-xs font-medium text-slate-500 uppercase tracking-wider">Awaiting Final Order</div>
+          <div className="text-2xl font-semibold text-blue-900 mt-1">{pendingFinalApprovals.length}</div>
+          <div className="text-[11px] text-slate-500 mt-1">Ready for Gazette issuance</div>
+        </div>
+
+        <div className="bg-white p-4 rounded border border-slate-200">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-medium text-slate-500 uppercase tracking-wider">SLA Overdue Alerts</span>
+            {overdueCases.length > 0 && (
+              <span className="w-2 h-2 rounded-full bg-red-600"></span>
+            )}
           </div>
-          <p className="text-xs text-slate-600 mt-1">
-            Competent authority oversight for statutory Gazette Approval Orders, national pendency analytics, and multi-tier SLA escalation triggers.
-          </p>
+          <div className="text-2xl font-semibold text-red-600 mt-1">{14 + overdueCases.length}</div>
+          <div className="text-[11px] text-red-700 mt-1">Escalated to Bureau Advisor</div>
         </div>
       </div>
 
       {/* Analytics Charts Row */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Region-wise Pendency Bar Chart */}
-        <div className="bg-white p-5 rounded-xl border border-gov-border shadow-xs">
-          <h3 className="font-serif font-bold text-sm text-slate-800 mb-1">
-            Region-Wise Pendency &amp; Overdue SLA Distribution
-          </h3>
-          <p className="text-[11px] text-slate-500 mb-4">
-            Western, Southern, Northern, Central and Eastern Bureaus
-          </p>
-
-          <div className="h-64 w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={regionalData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                <XAxis dataKey="name" tick={{ fontSize: 11 }} />
-                <YAxis tick={{ fontSize: 11 }} />
-                <Tooltip />
-                <Bar dataKey="Scrutiny" fill="#003087" name="Pending Scrutiny" />
-                <Bar dataKey="Overdue" fill="#DC2626" name="Overdue SLA" />
-              </BarChart>
-            </ResponsiveContainer>
+        {/* National Approval Funnel */}
+        <div className="bg-white p-5 rounded border border-slate-200">
+          <div className="mb-4">
+            <h2 className="text-sm font-semibold text-slate-900">
+              National Approval Pipeline Throughput
+            </h2>
+            <p className="text-[11px] text-slate-500">
+              Volume by workflow phase for AY 2026-27
+            </p>
           </div>
-        </div>
 
-        {/* Lifecycle Clearance Funnel */}
-        <div className="bg-white p-5 rounded-xl border border-gov-border shadow-xs">
-          <h3 className="font-serif font-bold text-sm text-slate-800 mb-1">
-            National APH Approval Funnel Metrics (AY 2026-27)
-          </h3>
-          <p className="text-[11px] text-slate-500 mb-4">
-            Pipeline throughput across all 6 administrative stages
-          </p>
-
-          <div className="h-64 w-full">
+          <div className="h-60 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 layout="vertical"
                 data={funnelData}
-                margin={{ top: 10, right: 30, left: 40, bottom: 0 }}
+                margin={{ top: 5, right: 30, left: 35, bottom: 0 }}
               >
-                <XAxis type="number" tick={{ fontSize: 10 }} />
-                <YAxis dataKey="name" type="category" tick={{ fontSize: 10 }} width={110} />
+                <XAxis type="number" tick={{ fontSize: 11, fill: '#64748b' }} />
+                <YAxis dataKey="name" type="category" tick={{ fontSize: 11, fill: '#475569' }} width={95} />
                 <Tooltip />
-                <Bar dataKey="count" fill="#003087">
+                <Bar dataKey="count" radius={[0, 4, 4, 0]}>
                   {funnelData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.fill} />
                   ))}
@@ -119,112 +139,213 @@ export default function BureauDashboard() {
             </ResponsiveContainer>
           </div>
         </div>
-      </div>
 
-      {/* Final Approval Issuance Panel */}
-      <div className="bg-white p-5 rounded-xl border border-gov-border shadow-xs space-y-4">
-        <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-          <div>
-            <h3 className="font-serif font-bold text-base text-gov-navy">
-              Cases Awaiting Final Bureau Approval Order (EoA)
-            </h3>
-            <p className="text-xs text-slate-500">
-              Standing Appellate Committee cleared dossiers ready for digital gazette signing
+        {/* Region-wise Pendency Bar Chart */}
+        <div className="bg-white p-5 rounded border border-slate-200">
+          <div className="mb-4">
+            <h2 className="text-sm font-semibold text-slate-900">
+              Regional Workload &amp; Overdue SLA Distribution
+            </h2>
+            <p className="text-[11px] text-slate-500">
+              Pending scrutiny counts vs. SLA breaches by Regional Office
             </p>
           </div>
-        </div>
 
-        <div className="space-y-3">
-          {pendingFinalApprovals.map((app) => {
-            const inst = institutions.find((i) => i.id === app.institutionId);
-            return (
-              <div
-                key={app.id}
-                className="p-4 rounded-lg bg-slate-50 border border-slate-200 text-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4"
-              >
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="font-mono font-bold text-gov-navy text-sm">{app.id}</span>
-                    <StatusBadge stage={app.workflowStage} />
-                  </div>
-                  <h4 className="font-bold text-slate-800 text-sm mt-0.5">{inst?.name}</h4>
-                  <p className="text-[11px] text-slate-500 font-mono mt-0.5">
-                    PID: {inst?.pid} • {inst?.city}, {inst?.state} • {app.type}
-                  </p>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => setSelectedAppForOrder(app.id)}
-                    className="px-4 py-2 rounded bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs flex items-center gap-1.5 shadow-xs transition-colors"
-                  >
-                    <Award className="w-4 h-4" />
-                    <span>Generate &amp; Issue Approval Order</span>
-                  </button>
-                </div>
-              </div>
-            );
-          })}
+          <div className="h-60 w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={regionalData} margin={{ top: 5, right: 10, left: -15, bottom: 0 }}>
+                <XAxis dataKey="name" tick={{ fontSize: 11, fill: '#475569' }} />
+                <YAxis tick={{ fontSize: 11, fill: '#64748b' }} />
+                <Tooltip />
+                <Bar dataKey="Scrutiny" fill="#1e3a8a" name="Pending Scrutiny" radius={[3, 3, 0, 0]} />
+                <Bar dataKey="Overdue" fill="#dc2626" name="Overdue SLA" radius={[3, 3, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </div>
       </div>
+
+      {/* Cases Awaiting Final Approval Order */}
+      <div className="bg-white rounded border border-slate-200 overflow-hidden">
+        <div className="px-5 py-3.5 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
+          <div>
+            <h2 className="text-sm font-semibold text-slate-900">
+              Applications Awaiting Final Approval Order (EoA)
+            </h2>
+            <p className="text-[11px] text-slate-500">
+              Committee-recommended applications ready for statutory digital signing
+            </p>
+          </div>
+          <span className="text-xs font-medium text-blue-900 bg-blue-50 border border-blue-200 px-2.5 py-0.5 rounded">
+            {pendingFinalApprovals.length} Applications Pending Order
+          </span>
+        </div>
+
+        {pendingFinalApprovals.length === 0 ? (
+          <div className="p-8 text-center text-xs text-slate-500">
+            No applications currently awaiting final approval order issuance.
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr className="border-b border-slate-200 bg-slate-50 text-slate-600 font-semibold">
+                  <th className="py-3 px-4">Application ID</th>
+                  <th className="py-3 px-4">Institution Name</th>
+                  <th className="py-3 px-4">Category</th>
+                  <th className="py-3 px-4">Stage</th>
+                  <th className="py-3 px-4 text-right">Action</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-200">
+                {pendingFinalApprovals.map((app) => {
+                  const inst = institutions.find((i) => i.id === app.institutionId);
+                  return (
+                    <tr key={app.id} className="hover:bg-slate-50/70 transition-colors">
+                      <td className="py-3.5 px-4 font-mono font-medium text-slate-900">
+                        {app.id}
+                      </td>
+                      <td className="py-3.5 px-4">
+                        <div className="font-medium text-slate-900">{inst?.name}</div>
+                        <div className="text-[11px] text-slate-500">
+                          PID: {inst?.pid} • {inst?.city}, {inst?.state}
+                        </div>
+                      </td>
+                      <td className="py-3.5 px-4 text-slate-700">
+                        {app.type}
+                      </td>
+                      <td className="py-3.5 px-4">
+                        <StatusBadge stage={app.workflowStage} />
+                      </td>
+                      <td className="py-3.5 px-4 text-right">
+                        <button
+                          onClick={() => setSelectedAppForOrder(app.id)}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-emerald-700 hover:bg-emerald-800 text-white font-medium text-xs transition-colors"
+                        >
+                          <Award className="w-3.5 h-3.5" />
+                          <span>Generate &amp; Issue Order</span>
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+
+      {/* Escalated SLA Cases (if any exist) */}
+      {overdueCases.length > 0 && (
+        <div className="bg-white rounded border border-red-200 overflow-hidden">
+          <div className="px-5 py-3.5 border-b border-red-200 bg-red-50 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <AlertTriangle className="w-4 h-4 text-red-700" />
+              <h2 className="text-sm font-semibold text-red-900">
+                Escalated Overdue Cases (SLA Breaches)
+              </h2>
+            </div>
+            <span className="text-xs text-red-700 font-medium">
+              Immediate Executive Intervention Required
+            </span>
+          </div>
+
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr className="border-b border-slate-200 bg-slate-50 text-slate-600 font-semibold">
+                  <th className="py-3 px-4">Application ID</th>
+                  <th className="py-3 px-4">Institution</th>
+                  <th className="py-3 px-4">Stage</th>
+                  <th className="py-3 px-4">SLA Overdue</th>
+                  <th className="py-3 px-4 text-right">Escalation Authority</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-200">
+                {overdueCases.map((app) => {
+                  const inst = institutions.find((i) => i.id === app.institutionId);
+                  return (
+                    <tr key={app.id} className="hover:bg-red-50/30 transition-colors">
+                      <td className="py-3 px-4 font-mono font-medium text-red-900">{app.id}</td>
+                      <td className="py-3 px-4">
+                        <div className="font-medium text-slate-900">{inst?.name}</div>
+                        <div className="text-[11px] text-slate-500">{inst?.city}, {inst?.state}</div>
+                      </td>
+                      <td className="py-3 px-4">
+                        <StatusBadge stage={app.workflowStage} />
+                      </td>
+                      <td className="py-3 px-4 font-medium text-red-700">
+                        {app.slaHoursRemaining ? `${Math.abs(app.slaHoursRemaining)}h past SLA` : 'Overdue SLA deadline'}
+                      </td>
+                      <td className="py-3 px-4 text-right font-medium text-slate-700">
+                        AICTE Member Secretary / Regional Officer
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
 
       {/* Approval Order Generation Modal */}
       {selectedAppForOrder && (
-        <div className="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white w-full max-w-lg rounded-xl shadow-2xl border border-gov-border overflow-hidden">
-            <div className="p-4 bg-emerald-800 text-white flex items-center justify-between">
+        <div className="fixed inset-0 z-50 bg-slate-950/50 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white w-full max-w-lg rounded-lg shadow-xl border border-slate-200 overflow-hidden">
+            <div className="p-4 bg-slate-900 text-white flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Award className="w-5 h-5 text-amber-300" />
-                <h3 className="font-serif font-bold text-sm">
-                  Official Gazette Approval Order Dispatched
+                <Award className="w-4 h-4 text-amber-400" />
+                <h3 className="font-semibold text-sm">
+                  Official Gazette Approval Order Issuance
                 </h3>
               </div>
               <button
                 onClick={() => setSelectedAppForOrder(null)}
-                className="text-emerald-200 hover:text-white"
+                className="text-slate-400 hover:text-white text-base"
               >
                 ✕
               </button>
             </div>
 
             <div className="p-5 space-y-4 text-xs">
-              <div className="bg-slate-50 p-3 rounded border border-slate-200 text-xs font-mono">
-                <div className="text-slate-500">Order Reference:</div>
-                <div className="font-bold text-gov-navy">
+              <div className="bg-slate-50 p-3 rounded border border-slate-200 text-xs">
+                <div className="text-slate-500 font-mono text-[11px]">Dispatch Reference:</div>
+                <div className="font-mono font-semibold text-blue-900 mt-0.5">
                   F.No. Western/1-4298101/2026/EOA-FINAL
                 </div>
-                <div className="text-slate-500 mt-1">Authorized Signatory:</div>
-                <div className="font-bold text-slate-800">
-                  Dr. Mamta R. Agarwal, Advisor-I (Approval Bureau)
+                <div className="text-slate-500 font-mono text-[11px] mt-2">Authorized Signatory:</div>
+                <div className="font-medium text-slate-800 mt-0.5">
+                  Advisor-I (Approval Bureau), AICTE New Delhi
                 </div>
               </div>
 
               <div>
-                <label className="font-bold text-slate-700 block mb-1">
-                  Regulatory Conditions (Linked to Compliance Engine)
+                <label className="font-medium text-slate-700 block mb-1">
+                  Regulatory Conditions (Linked to Continuous Monitoring)
                 </label>
                 <textarea
                   rows={3}
                   value={approvalConditions}
                   onChange={(e) => setApprovalConditions(e.target.value)}
-                  className="w-full text-xs p-2 rounded border border-slate-300 focus:outline-none focus:border-gov-navy"
+                  className="w-full text-xs p-2.5 rounded border border-slate-300 focus:outline-none focus:border-blue-900"
                 />
               </div>
 
-              <div className="bg-emerald-50 p-3 rounded border border-emerald-200 text-emerald-950 text-[11px] leading-relaxed">
-                Issuing this order will automatically record the decision into the permanent digital audit ledger, dispatch institutional SMS/Email notifications, and schedule post-approval compliance tracking.
+              <div className="p-3 bg-slate-50 rounded border border-slate-200 text-slate-600 text-[11px] leading-relaxed">
+                Issuing this statutory order will record the decision in the permanent audit trail, generate an official digitally stamped approval certificate, and schedule renewal monitoring.
               </div>
 
               <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-200">
                 <button
                   onClick={() => setSelectedAppForOrder(null)}
-                  className="px-3 py-1.5 border border-slate-300 rounded text-slate-700 text-xs font-semibold"
+                  className="px-3 py-1.5 border border-slate-300 rounded text-slate-700 text-xs font-medium hover:bg-slate-50"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleIssueOrder}
-                  className="px-4 py-2 rounded bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs flex items-center gap-1.5 shadow-xs"
+                  className="px-4 py-2 rounded bg-emerald-700 hover:bg-emerald-800 text-white font-medium text-xs flex items-center gap-1.5 transition-colors"
                 >
                   <Send className="w-3.5 h-3.5" />
                   <span>Digitally Sign &amp; Dispatch Order</span>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, ShieldCheck, CheckCircle2, Download, ExternalLink, Loader2 } from 'lucide-react';
+import { X, CheckCircle2, Download, ExternalLink, Loader2 } from 'lucide-react';
 
 export default function DigiLockerModal({ isOpen, onClose, onImportSuccess }) {
   const [loading, setLoading] = useState(false);
@@ -11,27 +11,24 @@ export default function DigiLockerModal({ isOpen, onClose, onImportSuccess }) {
   const mockDigiLockerDocs = [
     {
       id: 'DOC-LAND-01',
-      title: 'Registered Land Lease Deed (30 Years)',
-      issuer: 'Dept of Registration & Stamps, Govt. of Maharashtra',
+      title: 'Registered Land Lease Deed',
+      issuer: 'Department of Registration & Stamps, Maharashtra',
       issuedOn: '14-Mar-2018',
-      docType: 'LEGAL_DEED',
-      status: 'VERIFIED'
+      docType: 'LEGAL_DEED'
     },
     {
       id: 'DOC-AFF-02',
-      title: 'Statutory Non-Judicial Stamp Affidavit (Rs. 100)',
+      title: 'Statutory Non-Judicial Affidavit',
       issuer: 'National e-Governance Services Limited (NeSL)',
       issuedOn: '04-Jan-2026',
-      docType: 'AFFIDAVIT',
-      status: 'VERIFIED'
+      docType: 'AFFIDAVIT'
     },
     {
       id: 'DOC-FIRE-03',
-      title: 'Provisional Fire Safety Compliance NOC',
-      issuer: 'State Disaster Management & Fire Services',
+      title: 'Fire Safety Clearance Certificate',
+      issuer: 'State Fire & Emergency Services',
       issuedOn: '12-May-2025',
-      docType: 'SAFETY_NOC',
-      status: 'VERIFIED'
+      docType: 'SAFETY_NOC'
     }
   ];
 
@@ -40,7 +37,7 @@ export default function DigiLockerModal({ isOpen, onClose, onImportSuccess }) {
     setTimeout(() => {
       setLoading(false);
       setAuthorized(true);
-    }, 1200);
+    }, 900);
   };
 
   const handleImport = () => {
@@ -51,75 +48,67 @@ export default function DigiLockerModal({ isOpen, onClose, onImportSuccess }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/60 backdrop-blur-xs flex items-center justify-center p-4">
-      <div className="bg-white w-full max-w-lg rounded-xl shadow-2xl border border-gov-border overflow-hidden">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/40 backdrop-blur-2xs flex items-center justify-center p-4">
+      <div className="bg-white w-full max-w-md rounded-lg shadow-xl border border-slate-200 overflow-hidden">
         {/* Header */}
-        <div className="p-4 bg-emerald-800 text-white flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-full bg-white text-emerald-800 flex items-center justify-center font-bold text-sm shadow-xs">
-              DL
-            </div>
-            <div>
-              <h3 className="font-serif font-bold text-base">DigiLocker Document Exchange</h3>
-              <p className="text-xs text-emerald-200">
-                Official API Requester Integration (DigiLocker v1.12)
-              </p>
-            </div>
+        <div className="p-4 border-b border-slate-200 flex items-center justify-between">
+          <div>
+            <h3 className="font-semibold text-slate-900 text-sm">DigiLocker Document Verification</h3>
+            <p className="text-[11px] text-slate-500">
+              Fetch verified certificates from National DigiLocker Repository
+            </p>
           </div>
-          <button onClick={onClose} className="p-1 rounded text-emerald-200 hover:text-white">
-            <X className="w-5 h-5" />
+          <button onClick={onClose} className="p-1 rounded text-slate-400 hover:text-slate-600">
+            <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Content */}
         <div className="p-5">
           {!authorized ? (
-            <div className="text-center py-4">
-              <div className="w-14 h-14 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-3 border border-emerald-200">
-                <ShieldCheck className="w-8 h-8 text-emerald-600" />
-              </div>
-              <h4 className="font-bold text-slate-800 text-sm mb-1">
-                Authorize AICTE Portal Access to DigiLocker Vault
+            <div className="text-center py-3">
+              <h4 className="font-semibold text-slate-800 text-xs mb-1">
+                Link Institutional Account
               </h4>
-              <p className="text-xs text-slate-600 mb-6 max-w-sm mx-auto leading-relaxed">
-                Seamlessly fetch tamper-proof, cryptographically signed institutional deeds and state regulatory NOCs directly from official government repositories.
+              <p className="text-xs text-slate-500 mb-5 max-w-xs mx-auto leading-relaxed">
+                Connect to retrieve verified land title records and statutory clearances directly into the application.
               </p>
 
               <button
                 onClick={handleAuthorize}
                 disabled={loading}
-                className="w-full flex items-center justify-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-2.5 px-4 rounded-lg text-xs transition-colors shadow-sm"
+                className="w-full flex items-center justify-center gap-2 bg-blue-900 hover:bg-blue-950 text-white font-medium py-2 px-4 rounded text-xs transition-colors"
               >
                 {loading ? (
                   <>
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                    <span>Connecting to National DigiLocker Gateway...</span>
+                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                    <span>Connecting to DigiLocker...</span>
                   </>
                 ) : (
                   <>
-                    <ExternalLink className="w-4 h-4" />
-                    <span>Authorize &amp; Fetch Verified Records</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                    <span>Authorize &amp; Fetch Records</span>
                   </>
                 )}
               </button>
             </div>
           ) : (
             <div>
-              <div className="flex items-center justify-between mb-3 pb-2 border-b border-slate-200">
-                <span className="text-xs font-bold text-slate-700">
-                  Verified Records Found (3 Available)
+              <div className="flex items-center justify-between mb-3 text-xs">
+                <span className="font-medium text-slate-700">
+                  Available Verified Documents
                 </span>
-                <span className="text-[11px] text-emerald-700 font-bold flex items-center gap-1">
+                <span className="text-emerald-700 font-medium flex items-center gap-1 text-[11px]">
                   <CheckCircle2 className="w-3.5 h-3.5" />
-                  OAuth Verified
+                  Authenticated
                 </span>
               </div>
 
-              <div className="space-y-2 mb-5">
+              <div className="space-y-2 mb-4">
                 {mockDigiLockerDocs.map((doc) => (
                   <label
                     key={doc.id}
-                    className="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:border-emerald-500 bg-slate-50 cursor-pointer transition-colors"
+                    className="flex items-start gap-3 p-2.5 rounded border border-slate-200 bg-slate-50/50 hover:bg-slate-50 cursor-pointer text-xs"
                   >
                     <input
                       type="checkbox"
@@ -131,13 +120,13 @@ export default function DigiLockerModal({ isOpen, onClose, onImportSuccess }) {
                           setSelectedDocs(selectedDocs.filter((id) => id !== doc.id));
                         }
                       }}
-                      className="mt-1 rounded text-emerald-600 focus:ring-emerald-500"
+                      className="mt-0.5 rounded text-blue-900 focus:ring-blue-900"
                     />
-                    <div className="flex-1 text-xs">
-                      <div className="font-bold text-slate-900">{doc.title}</div>
-                      <div className="text-[11px] text-slate-600">{doc.issuer}</div>
+                    <div className="flex-1">
+                      <div className="font-medium text-slate-900">{doc.title}</div>
+                      <div className="text-[11px] text-slate-500">{doc.issuer}</div>
                       <div className="text-[10px] text-slate-400 mt-0.5">
-                        Issued: {doc.issuedOn} • Digital Signature: Valid
+                        Issued: {doc.issuedOn}
                       </div>
                     </div>
                   </label>
@@ -147,16 +136,16 @@ export default function DigiLockerModal({ isOpen, onClose, onImportSuccess }) {
               <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-200">
                 <button
                   onClick={onClose}
-                  className="px-3 py-1.5 rounded border border-slate-300 text-slate-700 text-xs font-semibold hover:bg-slate-100"
+                  className="px-3 py-1.5 rounded border border-slate-200 text-slate-700 text-xs hover:bg-slate-50"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleImport}
-                  className="px-4 py-1.5 rounded bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold flex items-center gap-1.5"
+                  className="px-4 py-1.5 rounded bg-blue-900 hover:bg-blue-950 text-white text-xs font-medium flex items-center gap-1.5"
                 >
                   <Download className="w-3.5 h-3.5" />
-                  Import Selected into Dossier
+                  <span>Attach to Application</span>
                 </button>
               </div>
             </div>
