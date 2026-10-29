@@ -39,10 +39,10 @@ export default function BureauDashboard() {
 
   // Pipeline funnel stages
   const funnelData = [
-    { name: 'Submitted', count: 8420, fill: '#1e3a8a' },
-    { name: 'Scrutiny', count: 6280, fill: '#2563eb' },
-    { name: 'EVC Inspection', count: 1960, fill: '#4f46e5' },
-    { name: 'SAC Appellate', count: 420, fill: '#d97706' },
+    { name: 'Submitted', count: 8420, fill: '#7A1526' },
+    { name: 'Scrutiny', count: 6280, fill: '#9E1B31' },
+    { name: 'EVC Inspection', count: 1960, fill: '#B45309' },
+    { name: 'SAC Appellate', count: 420, fill: '#D97706' },
     { name: 'Approved (EoA)', count: 4120, fill: '#059669' }
   ];
 
@@ -91,7 +91,7 @@ export default function BureauDashboard() {
 
         <div className="bg-white p-4 rounded border border-slate-200">
           <div className="text-xs font-medium text-slate-500 uppercase tracking-wider">Awaiting Final Order</div>
-          <div className="text-2xl font-semibold text-blue-900 mt-1">{pendingFinalApprovals.length}</div>
+          <div className="text-2xl font-semibold text-[#7A1526] mt-1">{pendingFinalApprovals.length}</div>
           <div className="text-[11px] text-slate-500 mt-1">Ready for Gazette issuance</div>
         </div>
 
@@ -157,7 +157,7 @@ export default function BureauDashboard() {
                 <XAxis dataKey="name" tick={{ fontSize: 11, fill: '#475569' }} />
                 <YAxis tick={{ fontSize: 11, fill: '#64748b' }} />
                 <Tooltip />
-                <Bar dataKey="Scrutiny" fill="#1e3a8a" name="Pending Scrutiny" radius={[3, 3, 0, 0]} />
+                <Bar dataKey="Scrutiny" fill="#7A1526" name="Pending Scrutiny" radius={[3, 3, 0, 0]} />
                 <Bar dataKey="Overdue" fill="#dc2626" name="Overdue SLA" radius={[3, 3, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
@@ -176,7 +176,7 @@ export default function BureauDashboard() {
               Committee-recommended applications ready for statutory digital signing
             </p>
           </div>
-          <span className="text-xs font-medium text-blue-900 bg-blue-50 border border-blue-200 px-2.5 py-0.5 rounded">
+          <span className="text-xs font-medium text-[#7A1526] bg-rose-50 border border-rose-200 px-2.5 py-0.5 rounded">
             {pendingFinalApprovals.length} Applications Pending Order
           </span>
         </div>
@@ -311,7 +311,7 @@ export default function BureauDashboard() {
             <div className="p-5 space-y-4 text-xs">
               <div className="bg-slate-50 p-3 rounded border border-slate-200 text-xs">
                 <div className="text-slate-500 font-mono text-[11px]">Dispatch Reference:</div>
-                <div className="font-mono font-semibold text-blue-900 mt-0.5">
+                <div className="font-mono font-semibold text-[#7A1526] mt-0.5">
                   F.No. Western/1-4298101/2026/EOA-FINAL
                 </div>
                 <div className="text-slate-500 font-mono text-[11px] mt-2">Authorized Signatory:</div>
@@ -328,7 +328,7 @@ export default function BureauDashboard() {
                   rows={3}
                   value={approvalConditions}
                   onChange={(e) => setApprovalConditions(e.target.value)}
-                  className="w-full text-xs p-2.5 rounded border border-slate-300 focus:outline-none focus:border-blue-900"
+                  className="w-full text-xs p-2.5 rounded border border-slate-300 focus:outline-none focus:border-[#7A1526]"
                 />
               </div>
 

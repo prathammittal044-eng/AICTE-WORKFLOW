@@ -49,7 +49,7 @@ export default function GIGWNavBar({ currentView, setCurrentView }) {
                 onClick={() => setCurrentView(item.id)}
                 className={`py-3 text-xs tracking-normal whitespace-nowrap transition-colors border-b-2 ${
                   isActive
-                    ? 'border-blue-900 text-blue-900 font-semibold'
+                    ? 'border-[#7A1526] text-[#7A1526] font-semibold'
                     : 'border-transparent text-slate-600 hover:text-slate-900 font-normal'
                 }`}
               >

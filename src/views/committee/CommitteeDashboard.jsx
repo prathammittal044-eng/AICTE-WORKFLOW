@@ -63,7 +63,7 @@ export default function CommitteeDashboard() {
             <div className="text-xs font-medium text-slate-500 uppercase tracking-wider">Active EVC Field Inspections</div>
             <div className="text-2xl font-semibold text-slate-900 mt-1">{evcCases.length}</div>
           </div>
-          <div className="w-10 h-10 rounded bg-blue-50 text-blue-900 flex items-center justify-center">
+          <div className="w-10 h-10 rounded bg-rose-50 text-[#7A1526] flex items-center justify-center">
             <Users className="w-5 h-5" />
           </div>
         </div>
@@ -83,7 +83,7 @@ export default function CommitteeDashboard() {
       <div className="bg-white rounded border border-slate-200 overflow-hidden">
         <div className="px-5 py-3.5 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Calendar className="w-4 h-4 text-blue-900" />
+            <Calendar className="w-4 h-4 text-[#7A1526]" />
             <h2 className="text-sm font-semibold text-slate-900">
               Expert Visit Committee (EVC) Field Inspection Roster
             </h2>
@@ -140,7 +140,7 @@ export default function CommitteeDashboard() {
                       <td className="py-3.5 px-4 text-right">
                         <button
                           onClick={() => handleEVCSubmit(app.id)}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-blue-900 hover:bg-blue-800 text-white font-medium text-xs transition-colors"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#7A1526] hover:bg-[#62111E] text-white font-medium text-xs transition-colors"
                         >
                           <FileCheck className="w-3.5 h-3.5" />
                           <span>Submit Inspection Report</span>
@@ -159,7 +159,7 @@ export default function CommitteeDashboard() {
       <div className="bg-white rounded border border-slate-200 overflow-hidden">
         <div className="px-5 py-3.5 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Gavel className="w-4 h-4 text-blue-900" />
+            <Gavel className="w-4 h-4 text-[#7A1526]" />
             <h2 className="text-sm font-semibold text-slate-900">
               Standing Appellate Committee (SAC / SHC) Hearing Cases
             </h2>

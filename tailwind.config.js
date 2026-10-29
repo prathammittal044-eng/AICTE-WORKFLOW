@@ -8,10 +8,26 @@ export default {
   theme: {
     extend: {
       colors: {
+        maroon: {
+          50: '#FDF2F4',
+          100: '#FCE7EB',
+          200: '#F8C8D0',
+          300: '#F299A6',
+          400: '#E45C72',
+          500: '#C22D47',
+          600: '#9E1B31',
+          700: '#881326',
+          800: '#7A1526', // AICTE Sovereign Maroon
+          900: '#580D1A',
+          950: '#38060E'
+        },
         gov: {
-          navy: '#003087',
-          navyDark: '#001C5C',
-          navyLight: '#0B4DB5',
+          maroon: '#7A1526',
+          maroonDark: '#580D1A',
+          maroonLight: '#9E1B31',
+          navy: '#7A1526', // remapped to AICTE Maroon
+          navyDark: '#580D1A',
+          navyLight: '#9E1B31',
           saffron: '#FF9933',
           saffronDark: '#D97706',
           saffronLight: '#FFFBEB',
@@ -22,7 +38,7 @@ export default {
           success: '#10B981',
           warning: '#F59E0B',
           danger: '#DC2626',
-          info: '#2563EB',
+          info: '#7A1526',
           auditGray: '#334155'
         }
       },

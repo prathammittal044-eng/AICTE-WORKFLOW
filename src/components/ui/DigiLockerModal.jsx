@@ -77,7 +77,7 @@ export default function DigiLockerModal({ isOpen, onClose, onImportSuccess }) {
               <button
                 onClick={handleAuthorize}
                 disabled={loading}
-                className="w-full flex items-center justify-center gap-2 bg-blue-900 hover:bg-blue-950 text-white font-medium py-2 px-4 rounded text-xs transition-colors"
+                className="w-full flex items-center justify-center gap-2 bg-[#7A1526] hover:bg-[#62111E] text-white font-medium py-2 px-4 rounded text-xs transition-colors"
               >
                 {loading ? (
                   <>
@@ -120,7 +120,7 @@ export default function DigiLockerModal({ isOpen, onClose, onImportSuccess }) {
                           setSelectedDocs(selectedDocs.filter((id) => id !== doc.id));
                         }
                       }}
-                      className="mt-0.5 rounded text-blue-900 focus:ring-blue-900"
+                      className="mt-0.5 rounded text-[#7A1526] focus:ring-[#7A1526]"
                     />
                     <div className="flex-1">
                       <div className="font-medium text-slate-900">{doc.title}</div>
@@ -142,7 +142,7 @@ export default function DigiLockerModal({ isOpen, onClose, onImportSuccess }) {
                 </button>
                 <button
                   onClick={handleImport}
-                  className="px-4 py-1.5 rounded bg-blue-900 hover:bg-blue-950 text-white text-xs font-medium flex items-center gap-1.5"
+                  className="px-4 py-1.5 rounded bg-[#7A1526] hover:bg-[#62111E] text-white text-xs font-medium flex items-center gap-1.5"
                 >
                   <Download className="w-3.5 h-3.5" />
                   <span>Attach to Application</span>

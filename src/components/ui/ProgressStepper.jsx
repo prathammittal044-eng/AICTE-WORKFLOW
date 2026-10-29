@@ -51,8 +51,8 @@ export default function ProgressStepper({ currentStage }) {
               circleStyle = 'bg-red-600 border-2 border-red-600 text-white';
               textStyle = 'text-red-700 font-semibold';
             } else {
-              circleStyle = 'bg-blue-900 border-2 border-blue-900 text-white';
-              textStyle = 'text-blue-950 font-semibold';
+              circleStyle = 'bg-[#7A1526] border-2 border-[#7A1526] text-white';
+              textStyle = 'text-[#580D1A] font-semibold';
             }
           }
 

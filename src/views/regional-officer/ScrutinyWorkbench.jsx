@@ -89,7 +89,7 @@ export default function ScrutinyWorkbench({ appId, onBack }) {
           </button>
           <button
             onClick={handleClearScrutiny}
-            className="px-3.5 py-1.5 rounded bg-blue-900 hover:bg-blue-950 text-white text-xs font-medium transition-colors"
+            className="px-3.5 py-1.5 rounded bg-[#7A1526] hover:bg-[#62111E] text-white text-xs font-medium transition-colors"
           >
             Clear Scrutiny &amp; Proceed to EVC
           </button>
@@ -110,7 +110,7 @@ export default function ScrutinyWorkbench({ appId, onBack }) {
                 onClick={() => setActiveDocTab('LEASE_DEED')}
                 className={`px-3 py-1.5 rounded text-xs transition-colors ${
                   activeDocTab === 'LEASE_DEED'
-                    ? 'bg-white font-medium text-blue-900 shadow-2xs border border-slate-200'
+                    ? 'bg-white font-medium text-[#7A1526] shadow-2xs border border-slate-200'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
@@ -120,7 +120,7 @@ export default function ScrutinyWorkbench({ appId, onBack }) {
                 onClick={() => setActiveDocTab('FIRE_NOC')}
                 className={`px-3 py-1.5 rounded text-xs transition-colors ${
                   activeDocTab === 'FIRE_NOC'
-                    ? 'bg-white font-medium text-blue-900 shadow-2xs border border-slate-200'
+                    ? 'bg-white font-medium text-[#7A1526] shadow-2xs border border-slate-200'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
@@ -130,7 +130,7 @@ export default function ScrutinyWorkbench({ appId, onBack }) {
                 onClick={() => setActiveDocTab('AFFIDAVIT')}
                 className={`px-3 py-1.5 rounded text-xs transition-colors ${
                   activeDocTab === 'AFFIDAVIT'
-                    ? 'bg-white font-medium text-blue-900 shadow-2xs border border-slate-200'
+                    ? 'bg-white font-medium text-[#7A1526] shadow-2xs border border-slate-200'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
@@ -257,7 +257,7 @@ export default function ScrutinyWorkbench({ appId, onBack }) {
                     type="button"
                     className={`mt-0.5 w-4 h-4 rounded flex items-center justify-center shrink-0 border ${
                       item.verified
-                        ? 'bg-blue-900 border-blue-900 text-white'
+                        ? 'bg-[#7A1526] border-[#7A1526] text-white'
                         : 'bg-white border-slate-300 text-slate-400'
                     }`}
                   >
@@ -306,7 +306,7 @@ export default function ScrutinyWorkbench({ appId, onBack }) {
                 <select
                   value={deficiencyCategory}
                   onChange={(e) => setDeficiencyCategory(e.target.value)}
-                  className="w-full text-xs p-2 rounded border border-slate-300 focus:outline-none focus:border-blue-900 bg-white"
+                  className="w-full text-xs p-2 rounded border border-slate-300 focus:outline-none focus:border-[#7A1526] bg-white"
                 >
                   <option value="LAND_TITLE_DEFICIT">Land Area / Title Deed Discrepancy (Clause 2.1 APH)</option>
                   <option value="FACULTY_CADRE_MISMATCH">Faculty Cadre Ratio Shortfall (Cadre Norms 1:15)</option>
@@ -323,7 +323,7 @@ export default function ScrutinyWorkbench({ appId, onBack }) {
                   rows={4}
                   value={deficiencyReason}
                   onChange={(e) => setDeficiencyReason(e.target.value)}
-                  className="w-full text-xs p-2.5 rounded border border-slate-300 focus:outline-none focus:border-blue-900"
+                  className="w-full text-xs p-2.5 rounded border border-slate-300 focus:outline-none focus:border-[#7A1526]"
                 />
               </div>
 

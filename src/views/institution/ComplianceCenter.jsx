@@ -73,7 +73,7 @@ export default function ComplianceCenter() {
       <div className="bg-white rounded border border-slate-200 overflow-hidden">
         <div className="px-5 py-3.5 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <ShieldAlert className="w-4 h-4 text-blue-900" />
+            <ShieldAlert className="w-4 h-4 text-[#7A1526]" />
             <h2 className="text-sm font-semibold text-slate-900">
               Document Compliance Schedule
             </h2>
@@ -145,7 +145,7 @@ export default function ComplianceCenter() {
                       ) : (
                         <button
                           onClick={() => handleFakeUpload(item.id)}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-blue-900 hover:bg-blue-800 text-white font-medium text-xs transition-colors"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#7A1526] hover:bg-[#62111E] text-white font-medium text-xs transition-colors"
                         >
                           <Upload className="w-3.5 h-3.5" />
                           <span>Upload Renewal</span>

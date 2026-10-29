@@ -78,7 +78,7 @@ export default function RODashboard({ onOpenWorkbench }) {
               onClick={() => setFilterType('ALL')}
               className={`px-3 py-1.5 rounded-md font-medium transition-colors ${
                 filterType === 'ALL'
-                  ? 'bg-blue-900 text-white'
+                  ? 'bg-[#7A1526] text-white'
                   : 'text-slate-600 hover:bg-slate-100'
               }`}
             >
@@ -88,7 +88,7 @@ export default function RODashboard({ onOpenWorkbench }) {
               onClick={() => setFilterType('SCRUTINY')}
               className={`px-3 py-1.5 rounded-md font-medium transition-colors ${
                 filterType === 'SCRUTINY'
-                  ? 'bg-blue-900 text-white'
+                  ? 'bg-[#7A1526] text-white'
                   : 'text-slate-600 hover:bg-slate-100'
               }`}
             >
@@ -98,7 +98,7 @@ export default function RODashboard({ onOpenWorkbench }) {
               onClick={() => setFilterType('DEFICIENCY')}
               className={`px-3 py-1.5 rounded-md font-medium transition-colors ${
                 filterType === 'DEFICIENCY'
-                  ? 'bg-blue-900 text-white'
+                  ? 'bg-[#7A1526] text-white'
                   : 'text-slate-600 hover:bg-slate-100'
               }`}
             >
@@ -122,7 +122,7 @@ export default function RODashboard({ onOpenWorkbench }) {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search by ID or Institution..."
-              className="w-full text-xs pl-8 pr-3 py-1.5 rounded-md border border-slate-300 focus:outline-none focus:border-blue-900 bg-white"
+              className="w-full text-xs pl-8 pr-3 py-1.5 rounded-md border border-slate-300 focus:outline-none focus:border-[#7A1526] bg-white"
             />
             <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2" />
           </div>
@@ -198,7 +198,7 @@ export default function RODashboard({ onOpenWorkbench }) {
                     <td className="p-3 text-right">
                       <button
                         onClick={() => onOpenWorkbench(app.id)}
-                        className="inline-flex items-center gap-1 px-3 py-1.5 rounded border border-slate-300 text-slate-700 hover:text-blue-900 hover:border-blue-900 text-xs font-medium transition-colors"
+                        className="inline-flex items-center gap-1 px-3 py-1.5 rounded border border-slate-300 text-slate-700 hover:text-[#7A1526] hover:border-[#7A1526] text-xs font-medium transition-colors"
                       >
                         <span>Open Scrutiny</span>
                         <ArrowRight className="w-3.5 h-3.5" />

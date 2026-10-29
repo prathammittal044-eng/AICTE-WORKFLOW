@@ -41,7 +41,7 @@ export default function GIGWHeader({ onLogout }) {
         {/* Brand Lockup: Official AICTE Insignia + Typography */}
         <div className="flex items-center gap-3.5">
           {/* Dignified Official Emblem */}
-          <div className="w-11 h-11 rounded-full bg-blue-900 text-amber-400 flex items-center justify-center shadow-xs shrink-0 border border-blue-950">
+          <div className="w-11 h-11 rounded-full bg-[#7A1526] text-amber-300 flex items-center justify-center shadow-xs shrink-0 border border-[#580D1A]">
             <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
               {/* Official Ashoka / Sun Wheel Symbol */}
               <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" strokeWidth="1.5" />
@@ -108,7 +108,7 @@ export default function GIGWHeader({ onLogout }) {
                   <div className="text-[11px] text-slate-500 truncate">
                     {roleConfig.defaultUser.org}
                   </div>
-                  <div className="text-[10px] text-blue-900 font-medium mt-1 inline-block bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
+                  <div className="text-[10px] text-[#7A1526] font-medium mt-1 inline-block bg-rose-50 px-2 py-0.5 rounded border border-rose-200">
                     {ROLE_LABELS[activeRole]}
                   </div>
                 </div>
@@ -126,7 +126,7 @@ export default function GIGWHeader({ onLogout }) {
                         key={roleKey}
                         onClick={() => handleSwitchRole(roleKey)}
                         className={`w-full text-left px-3.5 py-2 flex items-center justify-between hover:bg-slate-50 transition-colors ${
-                          isSelected ? 'font-semibold text-blue-900 bg-blue-50/40' : 'text-slate-700'
+                          isSelected ? 'font-semibold text-[#7A1526] bg-rose-50/50' : 'text-slate-700'
                         }`}
                       >
                         <div>
@@ -135,7 +135,7 @@ export default function GIGWHeader({ onLogout }) {
                             {r.defaultUser.name}
                           </div>
                         </div>
-                        {isSelected && <Check className="w-4 h-4 text-blue-900" />}
+                        {isSelected && <Check className="w-4 h-4 text-[#7A1526]" />}
                       </button>
                     );
                   })}

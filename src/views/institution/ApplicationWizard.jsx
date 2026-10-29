@@ -34,22 +34,22 @@ export default function ApplicationWizard({ onComplete }) {
 
         {/* Wizard Steps Stepper */}
         <div className="flex items-center justify-between mt-5 text-xs">
-          <div className={`flex items-center gap-2 ${step >= 1 ? 'text-blue-900 font-semibold' : 'text-slate-400'}`}>
-            <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${step >= 1 ? 'bg-blue-900 text-white' : 'bg-slate-200 text-slate-600'}`}>
+          <div className={`flex items-center gap-2 ${step >= 1 ? 'text-[#7A1526] font-semibold' : 'text-slate-400'}`}>
+            <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${step >= 1 ? 'bg-[#7A1526] text-white' : 'bg-slate-200 text-slate-600'}`}>
               1
             </span>
             <span>Programme Details</span>
           </div>
           <div className="flex-1 h-px bg-slate-200 mx-3"></div>
-          <div className={`flex items-center gap-2 ${step >= 2 ? 'text-blue-900 font-semibold' : 'text-slate-400'}`}>
-            <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${step >= 2 ? 'bg-blue-900 text-white' : 'bg-slate-200 text-slate-600'}`}>
+          <div className={`flex items-center gap-2 ${step >= 2 ? 'text-[#7A1526] font-semibold' : 'text-slate-400'}`}>
+            <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${step >= 2 ? 'bg-[#7A1526] text-white' : 'bg-slate-200 text-slate-600'}`}>
               2
             </span>
             <span>Infrastructure &amp; Land</span>
           </div>
           <div className="flex-1 h-px bg-slate-200 mx-3"></div>
-          <div className={`flex items-center gap-2 ${step >= 3 ? 'text-blue-900 font-semibold' : 'text-slate-400'}`}>
-            <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${step >= 3 ? 'bg-blue-900 text-white' : 'bg-slate-200 text-slate-600'}`}>
+          <div className={`flex items-center gap-2 ${step >= 3 ? 'text-[#7A1526] font-semibold' : 'text-slate-400'}`}>
+            <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${step >= 3 ? 'bg-[#7A1526] text-white' : 'bg-slate-200 text-slate-600'}`}>
               3
             </span>
             <span>APH Rule Verification &amp; Submit</span>
@@ -64,7 +64,7 @@ export default function ApplicationWizard({ onComplete }) {
             <select
               value={appType}
               onChange={(e) => setAppType(e.target.value)}
-              className="w-full p-2.5 rounded border border-slate-300 text-xs focus:outline-none focus:border-blue-900 bg-white"
+              className="w-full p-2.5 rounded border border-slate-300 text-xs focus:outline-none focus:border-[#7A1526] bg-white"
             >
               <option value="Extension of Approval (EoA)">Extension of Approval (EoA)</option>
               <option value="Increase in Intake / New Course">Increase in Intake / New Course</option>
@@ -85,7 +85,7 @@ export default function ApplicationWizard({ onComplete }) {
           <div className="pt-4 flex justify-end">
             <button
               onClick={() => setStep(2)}
-              className="px-4 py-2 bg-blue-900 hover:bg-blue-800 text-white rounded text-xs font-medium flex items-center gap-1.5 transition-colors"
+              className="px-4 py-2 bg-[#7A1526] hover:bg-[#62111E] text-white rounded text-xs font-medium flex items-center gap-1.5 transition-colors"
             >
               <span>Next: Infrastructure Parameters</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -102,7 +102,7 @@ export default function ApplicationWizard({ onComplete }) {
               type="text"
               value={landArea}
               onChange={(e) => setLandArea(e.target.value)}
-              className="w-full p-2.5 rounded border border-slate-300 text-xs focus:outline-none focus:border-blue-900"
+              className="w-full p-2.5 rounded border border-slate-300 text-xs focus:outline-none focus:border-[#7A1526]"
             />
             <span className="text-[11px] text-slate-500 mt-1 block">
               Minimum requirement: 2.50 Acres (Urban) / 4.0 Acres (Rural)
@@ -115,7 +115,7 @@ export default function ApplicationWizard({ onComplete }) {
               type="text"
               value={builtUp}
               onChange={(e) => setBuiltUp(e.target.value)}
-              className="w-full p-2.5 rounded border border-slate-300 text-xs focus:outline-none focus:border-blue-900"
+              className="w-full p-2.5 rounded border border-slate-300 text-xs focus:outline-none focus:border-[#7A1526]"
             />
           </div>
 
@@ -128,7 +128,7 @@ export default function ApplicationWizard({ onComplete }) {
             </button>
             <button
               onClick={() => setStep(3)}
-              className="px-4 py-2 bg-blue-900 hover:bg-blue-800 text-white rounded text-xs font-medium flex items-center gap-1.5 transition-colors"
+              className="px-4 py-2 bg-[#7A1526] hover:bg-[#62111E] text-white rounded text-xs font-medium flex items-center gap-1.5 transition-colors"
             >
               <span>Next: Automated APH Rule Check</span>
               <ArrowRight className="w-3.5 h-3.5" />

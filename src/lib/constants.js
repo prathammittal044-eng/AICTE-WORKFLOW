@@ -36,7 +36,7 @@ export const APH_STAGES = {
     stepNumber: 3,
     label: 'EVC Visit Scheduled',
     labelHi: 'ईवीसी निर्धारित',
-    color: 'bg-blue-50 text-blue-700 border-blue-200',
+    color: 'bg-rose-50 text-[#7A1526] border-rose-200',
     description: 'Expert Visit Committee appointed and inspection date confirmed'
   },
   EVC_REPORT_SUBMITTED: {

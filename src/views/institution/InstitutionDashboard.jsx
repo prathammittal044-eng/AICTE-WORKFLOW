@@ -42,7 +42,7 @@ export default function InstitutionDashboard({ onNavigateToApply }) {
         <div>
           <button
             onClick={onNavigateToApply}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-md bg-blue-900 hover:bg-blue-950 text-white font-medium text-xs transition-colors shadow-2xs"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-md bg-[#7A1526] hover:bg-[#62111E] text-white font-medium text-xs transition-colors shadow-2xs"
           >
             <Plus className="w-4 h-4" />
             <span>New Application</span>
@@ -145,7 +145,7 @@ export default function InstitutionDashboard({ onNavigateToApply }) {
                   {isReturned ? (
                     <AlertCircle className="w-4 h-4 text-red-600 shrink-0" />
                   ) : (
-                    <div className="w-2 h-2 rounded-full bg-blue-900 shrink-0" />
+                    <div className="w-2 h-2 rounded-full bg-[#7A1526] shrink-0" />
                   )}
                   <span>
                     {isReturned
@@ -198,7 +198,7 @@ export default function InstitutionDashboard({ onNavigateToApply }) {
                   rows={3}
                   value={rectificationText}
                   onChange={(e) => setRectificationText(e.target.value)}
-                  className="w-full text-xs p-2.5 rounded border border-slate-300 focus:outline-none focus:border-blue-900"
+                  className="w-full text-xs p-2.5 rounded border border-slate-300 focus:outline-none focus:border-[#7A1526]"
                 />
               </div>
 
@@ -210,7 +210,7 @@ export default function InstitutionDashboard({ onNavigateToApply }) {
                 <button
                   type="button"
                   onClick={() => setShowDigiLocker(true)}
-                  className="mt-2 text-xs text-blue-900 font-medium hover:underline"
+                  className="mt-2 text-xs text-[#7A1526] font-medium hover:underline"
                 >
                   Or fetch verified certificate via DigiLocker
                 </button>
@@ -225,7 +225,7 @@ export default function InstitutionDashboard({ onNavigateToApply }) {
                 </button>
                 <button
                   onClick={() => handleResubmit(selectedAppForDeficiency)}
-                  className="px-4 py-1.5 rounded bg-blue-900 hover:bg-blue-950 text-white font-medium text-xs flex items-center gap-1.5 transition-colors"
+                  className="px-4 py-1.5 rounded bg-[#7A1526] hover:bg-[#62111E] text-white font-medium text-xs flex items-center gap-1.5 transition-colors"
                 >
                   <Send className="w-3.5 h-3.5" />
                   <span>Submit for Re-Scrutiny</span>

@@ -32,7 +32,7 @@ export default function LoginPage({ onLoginSuccess }) {
         <div className="bg-white rounded-xl shadow-sm border border-slate-200 w-full p-6 sm:p-8">
           {/* Official Emblem & Portal Title */}
           <div className="text-center mb-8 pb-6 border-b border-slate-200">
-            <div className="w-12 h-12 rounded-full bg-blue-900 text-amber-400 flex items-center justify-center mx-auto mb-3 shadow-xs">
+            <div className="w-12 h-12 rounded-full bg-[#7A1526] text-amber-300 flex items-center justify-center mx-auto mb-3 shadow-xs">
               <svg className="w-7 h-7" viewBox="0 0 24 24" fill="currentColor">
                 <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" strokeWidth="1.5" />
                 <circle cx="12" cy="12" r="2.5" fill="currentColor" />
@@ -66,16 +66,16 @@ export default function LoginPage({ onLoginSuccess }) {
                   <button
                     key={key}
                     onClick={() => handleRoleLogin(key)}
-                    className="p-4 rounded-lg border border-slate-200 hover:border-blue-900 hover:bg-slate-50/80 text-left transition-all flex flex-col justify-between group"
+                    className="p-4 rounded-lg border border-slate-200 hover:border-[#7A1526] hover:bg-rose-50/20 text-left transition-all flex flex-col justify-between group"
                   >
                     <div>
                       <div className="flex items-center justify-between mb-2">
-                        <Icon className="w-5 h-5 text-blue-900" />
+                        <Icon className="w-5 h-5 text-[#7A1526]" />
                         <span className="text-[10px] text-slate-500 font-mono">
                           {ROLE_LABELS[key]}
                         </span>
                       </div>
-                      <div className="font-semibold text-sm text-slate-900 group-hover:text-blue-900">
+                      <div className="font-semibold text-sm text-slate-900 group-hover:text-[#7A1526]">
                         {r.title}
                       </div>
                       <div className="text-xs text-slate-500 mt-1">
@@ -85,7 +85,7 @@ export default function LoginPage({ onLoginSuccess }) {
                         {r.defaultUser.org}
                       </div>
                     </div>
-                    <div className="mt-4 pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-blue-900 font-medium">
+                    <div className="mt-4 pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-[#7A1526] font-medium">
                       <span>Enter Workspace</span>
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                     </div>
