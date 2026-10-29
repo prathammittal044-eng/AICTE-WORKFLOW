@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --base-font-size: 14px;
+}
+
+html {
+  font-size: var(--base-font-size);
+}
+
+/* High Contrast Mode */
+body.high-contrast {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+body.high-contrast .bg-white,
+body.high-contrast .bg-gov-offWhite,
+body.high-contrast .bg-slate-50,
+body.high-contrast .bg-gray-50 {
+  background-color: #121212 !important;
+  color: #ffffff !important;
+  border-color: #ffff00 !important;
+}
+
+body.high-contrast table th {
+  background-color: #1f2937 !important;
+  color: #ffff00 !important;
+}
+
+body.high-contrast a,
+body.high-contrast button {
+  outline-color: #ffff00 !important;
+}
+
+/* Tricolor Indian Accent Stripe */
+.gov-tricolor-stripe {
+  height: 4px;
+  background: linear-gradient(90deg, #FF9933 0%, #FF9933 33.33%, #FFFFFF 33.33%, #FFFFFF 66.66%, #138808 66.66%, #138808 100%);
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
